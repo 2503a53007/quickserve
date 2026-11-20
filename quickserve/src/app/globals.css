@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* QuickServe design tokens — Orange & White Gen-Z Edition.
+   Values are space-separated RGB so Tailwind opacity modifiers work. */
+:root {
+  --background: 255 255 255;   /* #FFFFFF */
+  --card: 255 247 242;         /* #FFF7F2 */
+  --foreground: 23 23 23;      /* #171717 */
+  --muted: 115 115 115;        /* #737373 */
+  --border: 253 224 205;       /* soft orange tint */
+  color-scheme: light;
+}
+.dark {
+  --background: 15 15 17;
+  --card: 28 25 23;
+  --foreground: 245 245 245;
+  --muted: 163 163 163;
+  --border: 68 52 42;
+  color-scheme: dark;
+}
+
+@layer base {
+  html { scroll-behavior: auto; -webkit-text-size-adjust: 100%; }
+  body { @apply bg-background text-foreground antialiased; font-feature-settings: 'cv11', 'ss01'; }
+  h1, h2, h3, h4 { @apply font-extrabold tracking-tight; }
+  *:focus-visible { outline: 3px solid #EA580C; outline-offset: 2px; border-radius: 8px; }
+  ::selection { background: rgb(249 115 22 / .25); }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  }
+}
+
+@layer components {
+  .container-page { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
+  .card-surface { @apply rounded-3xl border border-border bg-card shadow-soft; }
+  .text-brand-gradient { @apply bg-brand-gradient bg-clip-text text-transparent; }
+  .link-brand { @apply font-semibold text-brand-700 hover:underline dark:text-brand-400; }
+  .skeleton { @apply relative overflow-hidden rounded-xl bg-brand-100/70 dark:bg-white/10; }
+  .skeleton::after { content: ''; @apply absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/60 to-transparent dark:via-white/10; }
+
+  /* 3D Design System — tactile buttons, depth cards & perspective helpers */
+  .btn-3d-orange {
+    background: linear-gradient(180deg, #FB923C 0%, #F97316 45%, #EA580C 100%);
+    box-shadow: 0 5px 0 #C2410C, 0 14px 28px -6px rgba(249, 115, 22, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+    transition: transform 0.14s ease, box-shadow 0.14s ease, filter 0.14s ease;
+  }
+  .btn-3d-orange:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 0 #C2410C, 0 18px 34px -6px rgba(249, 115, 22, 0.65), inset 0 1px 1px rgba(255, 255, 255, 0.55);
+  }
+  .btn-3d-orange:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #C2410C, 0 6px 14px -4px rgba(249, 115, 22, 0.45);
+  }
+
+  .card-3d {
+    box-shadow: 0 12px 28px -10px rgba(23, 23, 23, 0.14), 0 4px 0 rgba(249, 115, 22, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .dark .card-3d {
+    box-shadow: 0 16px 34px -12px rgba(0, 0, 0, 0.65), 0 4px 0 rgba(249, 115, 22, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+  .card-3d:hover {
+    box-shadow: 0 22px 42px -12px rgba(249, 115, 22, 0.28), 0 6px 0 rgba(249, 115, 22, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+
+  .icon-3d {
+    box-shadow: 0 8px 18px -6px rgba(249, 115, 22, 0.4), 0 3px 0 rgba(234, 88, 12, 0.28), inset 0 2px 2px rgba(255, 255, 255, 0.65);
+  }
+}
+
+/* Google Maps container sanity */
+.gm-style img { max-width: none; }
